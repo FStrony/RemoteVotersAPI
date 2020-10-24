@@ -27,9 +27,9 @@ namespace RemoteVotersAPI.Application.Services
             await voteRepository.DeleteAllByCompanyId(companyId);
         }
         
-        public async Task DeleteAllVotesByCampaignId(ObjectId campaignId)
+        public async Task DeleteAllVotes(ObjectId companyId, ObjectId campaignId)
         {
-            await voteRepository.DeleteAllByCapaignId(campaignId);
+            await voteRepository.DeleteAll(companyId, campaignId);
         }
 
         public async Task RegisterVote(VoteViewModel record)
@@ -37,14 +37,14 @@ namespace RemoteVotersAPI.Application.Services
             await voteRepository.RegisterVote(Mapper.Map<Vote>(record));
         }
 
-        public async Task<List<VoteViewModel>> RetrieveAllByCampaignId(ObjectId campaignId)
+        public async Task<List<VoteViewModel>> RetrieveResults(ObjectId companyId, ObjectId campaignId)
         {
-            return Mapper.Map<List<VoteViewModel>>(await voteRepository.RetriveAllByCampaignId(campaignId));
+            return Mapper.Map<List<VoteViewModel>>(await voteRepository.RetrieveResults(companyId, campaignId));
         }
 
-        public async Task<bool> hasAlreadyVoted(ObjectId campaignId, String voterIdentity)
+        public async Task<bool> HasAlreadyVoted(ObjectId campaignId, String voterIdentity)
         {
-            return await voteRepository.hasAlreadyVoted(campaignId, voterIdentity);
+            return await voteRepository.HasAlreadyVoted(campaignId, voterIdentity);
         }
     }
 }

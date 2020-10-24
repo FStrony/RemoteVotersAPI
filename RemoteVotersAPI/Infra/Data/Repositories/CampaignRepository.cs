@@ -26,14 +26,15 @@ namespace RemoteVotersAPI.Infra.Data.Repositories
             await Collection.InsertOneAsync(record);
         }
 
-        public async Task Delete(ObjectId id)
+        public async Task Delete(ObjectId companyId, ObjectId campaignId)
         {
-            await Collection.DeleteOneAsync(Builders<Campaign>.Filter.Eq(record => record.Id, id));
+            await Collection.DeleteOneAsync(Builders<Campaign>.Filter.Where(record => record.Id.Equals(campaignId) &&
+                                                                                      record.CompanyId.Equals(companyId)));
         }
 
-        public async Task DeleteAllByCompanyId(ObjectId id)
+        public async Task DeleteAllByCompanyId(ObjectId companyId)
         {
-            await Collection.DeleteManyAsync(Builders<Campaign>.Filter.Eq(record => record.CompanyId, id));
+            await Collection.DeleteManyAsync(Builders<Campaign>.Filter.Eq(record => record.CompanyId, companyId));
         }
 
         public async Task Update(Campaign record)
@@ -41,14 +42,21 @@ namespace RemoteVotersAPI.Infra.Data.Repositories
             await Collection.ReplaceOneAsync(x => x.Id.Equals(record.Id), record);
         }
 
-        public async Task<Campaign> Retrieve(ObjectId id)
+        public async Task<Campaign> Retrieve(ObjectId companyId, ObjectId campaignId)
         {
-            return await Collection.Find(record => record.Id.Equals(id)).FirstAsync();
+            return await Collection.Find(record => record.Id.Equals(campaignId)
+                                                && record.CompanyId.Equals(companyId))
+                                            .FirstAsync();
         }
 
         public async Task<List<Campaign>> RetriveAllByCompanyId(ObjectId companyId)
         {
             return await Collection.Find(record => record.CompanyId.Equals(companyId)).ToListAsync();
+        }
+
+        public async Task<Campaign> RetrieveByCode(string code)
+        {
+            return await Collection.Find(record => record.CampaignCode.Equals(code)).FirstAsync();
         }
     }
 }

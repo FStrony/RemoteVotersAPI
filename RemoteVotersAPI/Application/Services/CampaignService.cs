@@ -29,10 +29,10 @@ namespace RemoteVotersAPI.Application.Services
             await campaignRepository.DeleteAllByCompanyId(companyId);
         }
 
-        public async Task DeleteCampaignById(ObjectId campaignId)
+        public async Task DeleteCampaign(ObjectId companyId, ObjectId campaignId)
         {
-            await campaignRepository.Delete(campaignId);
-            await voteService.DeleteAllVotesByCampaignId(campaignId);
+            await campaignRepository.Delete(companyId, campaignId);
+            await voteService.DeleteAllVotes(companyId, campaignId);
         }
 
         public async Task CreateCampaign(CampaignViewModel record)
@@ -45,9 +45,14 @@ namespace RemoteVotersAPI.Application.Services
             await campaignRepository.Update(Mapper.Map<Campaign>(record));
         }
 
-        public async Task<CampaignViewModel> RetrieveCampaign(ObjectId campaignId)
+        public async Task<CampaignViewModel> RetrieveCampaign(ObjectId companyId, ObjectId campaignId)
         {
-            return Mapper.Map<CampaignViewModel>(await campaignRepository.Retrieve(campaignId));
+            return Mapper.Map<CampaignViewModel>(await campaignRepository.Retrieve(companyId, campaignId));
+        }
+
+        public async Task<CampaignViewModel> RetrieveCampaignByCode(string code)
+        {
+            return Mapper.Map<CampaignViewModel>(await campaignRepository.RetrieveByCode(code));
         }
 
         public async Task<List<CampaignViewModel>> RetrieveAllByCompanyId(ObjectId companyId)

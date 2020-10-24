@@ -27,24 +27,27 @@ namespace RemoteVotersAPI.Infra.Data.Repositories
             await Collection.InsertOneAsync(record);
         }
 
-        public async Task<bool> hasAlreadyVoted(ObjectId campaignId, String voterIdentity)
+        public async Task<bool> HasAlreadyVoted(ObjectId campaignId, String voterIdentity)
         {
             return await Collection.Find(record => record.CampaignId.Equals(campaignId) && record.VoterIdentity.Equals(voterIdentity)).FirstAsync() != null;
         }
 
-        public async Task<List<Vote>> RetriveAllByCampaignId(ObjectId campaignId)
+        public async Task<List<Vote>> RetrieveResults(ObjectId companyId, ObjectId campaignId)
         {
-            return await Collection.Find(record => record.CampaignId.Equals(campaignId)).ToListAsync();
+            return await Collection.Find(record => record.CampaignId.Equals(campaignId)
+                                                && record.CompanyId.Equals(companyId))
+                                            .ToListAsync();
         }
 
-        public async Task DeleteAllByCompanyId(ObjectId id)
+        public async Task DeleteAllByCompanyId(ObjectId companyId)
         {
-            await Collection.DeleteManyAsync(Builders<Vote>.Filter.Eq(record => record.CompanyId, id));
+            await Collection.DeleteManyAsync(Builders<Vote>.Filter.Eq(record => record.CompanyId, companyId));
         }
 
-        public async Task DeleteAllByCapaignId(ObjectId id)
+        public async Task DeleteAll(Object companyId, ObjectId campaignId)
         {
-            await Collection.DeleteManyAsync(Builders<Vote>.Filter.Eq(record => record.CampaignId, id));
+            await Collection.DeleteManyAsync(Builders<Vote>.Filter.Where(record => record.CampaignId.Equals(campaignId) &&
+                                                                                   record.CompanyId.Equals(companyId)));
         }
 
     }
