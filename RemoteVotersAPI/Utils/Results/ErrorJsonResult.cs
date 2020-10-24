@@ -4,6 +4,11 @@ using System.Collections.Generic;
 
 namespace RemoteVotersAPI.Utils.Results
 {
+    /// <summary>
+    /// Helper class - JSON Error Model
+    /// 
+    /// Author: FStrony
+    /// </summary>
     public class ErrorJsonResult : JsonResult
     {
         public ErrorJsonResult(IEnumerable<ErrorValidate> errors)

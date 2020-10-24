@@ -11,12 +11,26 @@ using RemoteVotersAPI.Infra.ModelSettings;
 
 namespace RemoteVotersAPI.Application.Services
 {
+    /// <summary>
+    /// Campaign Service
+    ///
+    /// Author: FStrony
+    /// </summary>
     public class CampaignService
     {
+        /// <value>campaign repository</value>
         private CampaignRepository campaignRepository;
+
+        /// <value>vote service</value>
         private VoteService voteService;
+
+        /// <value>MongoDB configs</value>
         private IOptions<MongoDBConfig> mongoDBConfig;
 
+        /// <summary>
+        /// Dependency injection
+        /// </summary>
+        /// <param name="mongoDBConfig"></param>
         public CampaignService(IOptions<MongoDBConfig> mongoDBConfig)
         {
             this.mongoDBConfig = mongoDBConfig;
@@ -24,37 +38,74 @@ namespace RemoteVotersAPI.Application.Services
             this.voteService = new VoteService(mongoDBConfig);
         }
 
+        /// <summary>
+        /// Delete All Campaigns By company ID
+        /// </summary>
+        /// <param name="companyId"></param>
+        /// <returns></returns>
         public async Task DeleteAllCampaignsByCompanyId(ObjectId companyId)
         {
             await campaignRepository.DeleteAllByCompanyId(companyId);
         }
 
+        /// <summary>
+        /// Delete Campaign by company ID and Campaign ID. It also deletes the votes from the campaign
+        /// </summary>
+        /// <param name="companyId"></param>
+        /// <param name="campaignId"></param>
+        /// <returns></returns>
         public async Task DeleteCampaign(ObjectId companyId, ObjectId campaignId)
         {
             await campaignRepository.Delete(companyId, campaignId);
             await voteService.DeleteAllVotes(companyId, campaignId);
         }
 
+        /// <summary>
+        /// Create Campaign
+        /// </summary>
+        /// <param name="record"></param>
+        /// <returns></returns>
         public async Task CreateCampaign(CampaignViewModel record)
         {
             await campaignRepository.Create(Mapper.Map<Campaign>(record));
         }
 
+        /// <summary>
+        /// Update Campaign
+        /// </summary>
+        /// <param name="record"></param>
+        /// <returns></returns>
         public async Task UpdateCampaign(CampaignViewModel record)
         {
             await campaignRepository.Update(Mapper.Map<Campaign>(record));
         }
 
+        /// <summary>
+        /// Retrieve Campaign by company ID and campaign ID
+        /// </summary>
+        /// <param name="companyId"></param>
+        /// <param name="campaignId"></param>
+        /// <returns>Campaign View Model</returns>
         public async Task<CampaignViewModel> RetrieveCampaign(ObjectId companyId, ObjectId campaignId)
         {
             return Mapper.Map<CampaignViewModel>(await campaignRepository.Retrieve(companyId, campaignId));
         }
 
+        /// <summary>
+        /// Retrieve Campaign by code
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns>Campaign View Model</returns>
         public async Task<CampaignViewModel> RetrieveCampaignByCode(string code)
         {
             return Mapper.Map<CampaignViewModel>(await campaignRepository.RetrieveByCode(code));
         }
 
+        /// <summary>
+        /// Retrieve All campaigns by company ID
+        /// </summary>
+        /// <param name="companyId"></param>
+        /// <returns>Campaign List</returns>
         public async Task<List<CampaignViewModel>> RetrieveAllByCompanyId(ObjectId companyId)
         {
             return Mapper.Map<List<CampaignViewModel>>(await campaignRepository.RetriveAllByCompanyId(companyId));

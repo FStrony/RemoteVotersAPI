@@ -5,6 +5,11 @@ using RemoteVotersAPI.Utils.Results;
 
 namespace RemoteVotersAPI.Utils
 {
+    /// <summary>
+    /// Attribute responsible for the view model validation
+    /// 
+    /// Author: FStrony
+    /// </summary>
     public class ValidateModelStateAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext context)

@@ -4,6 +4,11 @@ using RemoteVotersAPI.Domain.Entities;
 
 namespace RemoteVotersAPI.Application.AutoMapper
 {
+    /// <summary>
+    /// Domain to View Model Mapping
+    /// 
+    /// Author: FStrony
+    /// </summary>
     public class DomainToViewModelMappingProfile : Profile
     {
         public DomainToViewModelMappingProfile()

@@ -10,13 +10,29 @@ using RemoteVotersAPI.Infra.ModelSettings;
 
 namespace RemoteVotersAPI.Application.Services
 {
+    /// <summary>
+    /// Company Service
+    ///
+    /// Author: FStrony
+    /// </summary>
     public class CompanyService
     {
+        /// <value>company repository</value>
         private CompanyRepository companyRepository;
+
+        /// <value>campaign service</value>
         private CampaignService campaignService;
+
+        /// <value>vote service</value>
         private VoteService voteService;
+
+        /// <value>MongoDB configs</value>
         private IOptions<MongoDBConfig> mongoDBConfig;
 
+        /// <summary>
+        /// Dependency injection
+        /// </summary>
+        /// <param name="mongoDBConfig"></param>
         public CompanyService(IOptions<MongoDBConfig> mongoDBConfig)
         {
             this.mongoDBConfig = mongoDBConfig;
@@ -25,16 +41,32 @@ namespace RemoteVotersAPI.Application.Services
             this.voteService = new VoteService(mongoDBConfig);
         }
 
+        /// <summary>
+        /// Create Company
+        /// </summary>
+        /// <param name="record"></param>
+        /// <returns></returns>
         public async Task CreateCompany(CompanyViewModel record)
         {
             await companyRepository.Create(Mapper.Map<Company>(record));
         }
 
+        /// <summary>
+        /// Update Company
+        /// </summary>
+        /// <param name="record"></param>
+        /// <returns></returns>
         public async Task UpdateCompany(CompanyViewModel record)
         {
             await companyRepository.Update(Mapper.Map<Company>(record));
         }
 
+        /// <summary>
+        /// Delete Company by CompanyID
+        /// And delete all the campaigns and votes related to the company
+        /// </summary>
+        /// <param name="companyId"></param>
+        /// <returns></returns>
         public async Task DeleteCompany(ObjectId companyId)
         {
             await companyRepository.Delete(companyId);
@@ -42,6 +74,11 @@ namespace RemoteVotersAPI.Application.Services
             await voteService.DeleteAllVotesByCompanyId(companyId);
         }
 
+        /// <summary>
+        /// Retrieve Company Information
+        /// </summary>
+        /// <param name="companyId"></param>
+        /// <returns>Campany View Model</returns>
         public async Task<CompanyViewModel> RetrieveCompany(ObjectId companyId)
         {
             return Mapper.Map<CompanyViewModel>(await companyRepository.Retrieve(companyId));

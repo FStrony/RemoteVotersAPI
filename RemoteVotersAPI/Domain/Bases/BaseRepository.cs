@@ -5,6 +5,11 @@ using RemoteVotersAPI.Infra.ModelSettings;
 
 namespace RemoteVotersAPI.Domain.Bases
 {
+    /// <summary>
+    /// Class responsible for configuring the connection with the database
+    /// 
+    /// Author: FStrony
+    /// </summary>
     public class BaseRepository
     {
         private readonly MongoDBConfig _mongoDBConfig = null;

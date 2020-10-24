@@ -1,6 +1,11 @@
 ﻿using System;
 namespace RemoteVotersAPI.Utils.Results
 {
+    /// <summary>
+    /// Error Entity
+    /// 
+    /// Author: FStrony
+    /// </summary>
     public class ErrorValidate
     {
         private string property;
