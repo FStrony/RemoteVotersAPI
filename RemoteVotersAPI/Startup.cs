@@ -49,7 +49,7 @@ namespace RemoteVotersAPI
                     TermsOfService = new Uri("https://github.com/FStrony/RemoteVotersAPI/blob/main/README.md"),
                     Contact = new OpenApiContact
                     {
-                        Name = "Fernando Santos (FStrony)",
+                        Name = "Fernando Augusto Santos (FStrony)",
                         Email = "fstrony@gmail.com",
                         Url = new Uri("http://fstrony.github.io"),
                     }
