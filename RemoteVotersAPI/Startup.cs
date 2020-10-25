@@ -34,7 +34,7 @@ namespace RemoteVotersAPI
 
             services.AddAutoMapper();
 
-            // Resgister the MongoDBConfig in MongoDBConfig class
+            // Register the MongoDBConfig in MongoDBConfig class
             services.Configure<MongoDBConfig>(Configuration.GetSection("MongoDBConfig"));
 
             // Register the Swagger generator, defining 1 or more Swagger documents
