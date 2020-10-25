@@ -7,6 +7,7 @@ using RemoteVotersAPI.Application.ViewModel;
 using RemoteVotersAPI.Domain.Entities;
 using RemoteVotersAPI.Infra.Data.Repositories;
 using RemoteVotersAPI.Infra.ModelSettings;
+using RemoteVotersAPI.Utils;
 
 namespace RemoteVotersAPI.Application.Services
 {
@@ -61,6 +62,7 @@ namespace RemoteVotersAPI.Application.Services
         /// <returns></returns>
         public async Task RegisterVote(VoteViewModel record)
         {
+            record.VoterIdentity = Encryptor.Encrypt(record.VoterIdentity);
             await voteRepository.RegisterVote(Mapper.Map<Vote>(record));
         }
 
@@ -84,7 +86,7 @@ namespace RemoteVotersAPI.Application.Services
         /// <returns>bool</returns>
         public async Task<bool> HasAlreadyVoted(ObjectId campaignId, String voterIdentity)
         {
-            return await voteRepository.HasAlreadyVoted(campaignId, voterIdentity);
+            return await voteRepository.HasAlreadyVoted(campaignId, Encryptor.Encrypt(voterIdentity));
         }
     }
 }

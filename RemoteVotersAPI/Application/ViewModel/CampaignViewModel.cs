@@ -44,7 +44,7 @@ namespace RemoteVotersAPI.Application.ViewModel
         /// <value> Campaign Status</value>
         [DefaultValue(true)]
         [Required(ErrorMessage = "Status is mandatory!")]
-        public bool Status_active { get; set; }
+        public bool Status { get; set; }
 
         /// <value> Campaign Options</value>
         [Required(ErrorMessage = "Campaign Options is mandatory!")]

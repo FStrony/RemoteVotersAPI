@@ -7,6 +7,7 @@ using RemoteVotersAPI.Application.ViewModel;
 using RemoteVotersAPI.Domain.Entities;
 using RemoteVotersAPI.Infra.Data.Repositories;
 using RemoteVotersAPI.Infra.ModelSettings;
+using RemoteVotersAPI.Utils;
 
 namespace RemoteVotersAPI.Application.Services
 {
@@ -48,6 +49,7 @@ namespace RemoteVotersAPI.Application.Services
         /// <returns></returns>
         public async Task CreateCompany(CompanyViewModel record)
         {
+            record.Password = Encryptor.Encrypt(record.Password);
             await companyRepository.Create(Mapper.Map<Company>(record));
         }
 
@@ -58,6 +60,16 @@ namespace RemoteVotersAPI.Application.Services
         /// <returns></returns>
         public async Task UpdateCompany(CompanyViewModel record)
         {
+            CompanyViewModel company = await RetrieveCompany(record.Id);
+
+            if (String.IsNullOrEmpty(record.Password)) {
+                record.Password = company.Password;
+            }
+            else
+            {
+                record.Password = Encryptor.Encrypt(record.Password);
+            }
+
             await companyRepository.Update(Mapper.Map<Company>(record));
         }
 
