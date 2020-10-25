@@ -6,11 +6,11 @@ namespace RemoteVotersAPI.Infra.ModelSettings
     /// 
     /// Author: FStrony
     /// </summary>
-    public class MongoDBConfig
+    public sealed class MongoDBConfig
     {
         /// <value> Database </value>
         public String Database { get; set; }
-
+        
         /// <value> DB URL </value>
         public String Url { get; set; }
 

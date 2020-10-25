@@ -25,7 +25,7 @@ namespace RemoteVotersAPI.Controllers
         private CompanyService companyService;
 
         /// <value>MongoDB configs</value>
-        IOptions<MongoDBConfig> mongoDBConfig;
+        private readonly IOptions<MongoDBConfig> _mongoDBConfig;
 
         /// <summary>
         /// Dependency injection
@@ -33,7 +33,7 @@ namespace RemoteVotersAPI.Controllers
         /// <param name="mongoDBConfig"></param>
         public CompanyController(IOptions<MongoDBConfig> mongoDBConfig)
         {
-            this.mongoDBConfig = mongoDBConfig;
+            _mongoDBConfig = mongoDBConfig;
             this.companyService = new CompanyService(mongoDBConfig);
         }
 

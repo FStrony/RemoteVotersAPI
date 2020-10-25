@@ -25,7 +25,7 @@ namespace RemoteVotersAPI.Application.Services
         private VoteService voteService;
 
         /// <value>MongoDB configs</value>
-        private IOptions<MongoDBConfig> mongoDBConfig;
+        private readonly IOptions<MongoDBConfig> _mongoDBConfig;
 
         /// <summary>
         /// Dependency injection
@@ -33,7 +33,7 @@ namespace RemoteVotersAPI.Application.Services
         /// <param name="mongoDBConfig"></param>
         public CampaignService(IOptions<MongoDBConfig> mongoDBConfig)
         {
-            this.mongoDBConfig = mongoDBConfig;
+            _mongoDBConfig = mongoDBConfig;
             this.campaignRepository = new CampaignRepository(mongoDBConfig);
             this.voteService = new VoteService(mongoDBConfig);
         }

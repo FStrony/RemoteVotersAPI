@@ -22,7 +22,7 @@ namespace RemoteVotersAPI.Infra.Data.Repositories
         public IMongoCollection<Company> Collection { get; set; }
 
         /// <value>MongoDB configs</value>
-        private IOptions<MongoDBConfig> MongoDBConfig;
+        private readonly IOptions<MongoDBConfig> _mongoDBConfig;
 
         /// <summary>
         /// Dependency injection
@@ -30,7 +30,7 @@ namespace RemoteVotersAPI.Infra.Data.Repositories
         /// <param name="mongoDBConfig"></param>
         public CompanyRepository(IOptions<MongoDBConfig> mongoDBConfig) : base(mongoDBConfig)
         {
-            MongoDBConfig = mongoDBConfig;
+            _mongoDBConfig = mongoDBConfig;
             Collection = DataBase.GetCollection<Company>(CollectionName);
         }
 

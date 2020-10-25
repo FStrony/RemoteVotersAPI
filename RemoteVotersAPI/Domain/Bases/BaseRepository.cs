@@ -12,7 +12,7 @@ namespace RemoteVotersAPI.Domain.Bases
     /// </summary>
     public class BaseRepository
     {
-        private readonly MongoDBConfig _mongoDBConfig = null;
+        private readonly MongoDBConfig _mongoDBConfig;
         protected MongoClient client { get; private set; }
 
         public BaseRepository(IOptions<MongoDBConfig> mongoDBConfig)
