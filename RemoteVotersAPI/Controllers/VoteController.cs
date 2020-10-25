@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
@@ -17,7 +18,8 @@ namespace RemoteVotersAPI.Controllers
     /// Author: FStrony
     /// </summary>
     [ApiController]
-    [Route("vote")]
+    [Route("[controller]")]
+    [Produces("application/json")]
     public class VoteController : ControllerBase
     {
         /// <value>vote service</value>
@@ -43,6 +45,8 @@ namespace RemoteVotersAPI.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModelState]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task RegisterVote([FromBody]VoteViewModel model)
         {
             await voteService.RegisterVote(model);
@@ -55,6 +59,8 @@ namespace RemoteVotersAPI.Controllers
         /// <param name="campaignId"></param>
         /// <returns></returns>
         [HttpDelete("{companyId}/reset-votes/{campaignId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task ResetVotes([FromRoute]string companyId, [FromRoute]string campaignId)
         {
             await voteService.DeleteAllVotes(new ObjectId(companyId), new ObjectId(campaignId));

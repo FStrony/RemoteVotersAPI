@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
@@ -14,9 +15,10 @@ namespace RemoteVotersAPI.Controllers
     /// Company Controller
     ///
     /// Author: FStrony
-    /// </summary>
+    /// </summary> 
     [ApiController]
-    [Route("company")]
+    [Route("[controller]")]
+    [Produces("application/json")]
     public class CompanyController : ControllerBase
     {
         /// <value>company service</value>
@@ -42,6 +44,8 @@ namespace RemoteVotersAPI.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModelState]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task Create([FromBody] CompanyViewModel companyModel)
         {
             await companyService.CreateCompany(companyModel);
@@ -54,6 +58,8 @@ namespace RemoteVotersAPI.Controllers
         /// <returns></returns>
         [HttpPut]
         [ValidateModelState]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task Update([FromBody] CompanyViewModel companyModel)
         {
             await companyService.UpdateCompany(companyModel);
@@ -65,6 +71,8 @@ namespace RemoteVotersAPI.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task Delete([FromRoute] string id)
         {
             await companyService.DeleteCompany(new ObjectId(id));
@@ -76,6 +84,8 @@ namespace RemoteVotersAPI.Controllers
         /// <param name="id"></param>
         /// <returns>Company Information</returns>
         [HttpGet("getCompany/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<CompanyViewModel> RetrieveByCompanyId([FromRoute] string id)
         {
             return await companyService.RetrieveCompany(new ObjectId(id));

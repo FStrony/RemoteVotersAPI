@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
@@ -17,7 +18,8 @@ namespace RemoteVotersAPI.Controllers
     /// Author: FStrony
     /// </summary>
     [ApiController]
-    [Route("campaign")]
+    [Route("[controller]")]
+    [Produces("application/json")]
     public class CampaignController : ControllerBase
     {
         /// <value>campaign service</value>
@@ -43,6 +45,8 @@ namespace RemoteVotersAPI.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateModelState]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task Create([FromBody] CampaignViewModel model)
         {
             await campaignService.CreateCampaign(model);
@@ -55,6 +59,8 @@ namespace RemoteVotersAPI.Controllers
         /// <returns></returns>
         [HttpPut]
         [ValidateModelState]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task Update([FromBody] CampaignViewModel model)
         {
             await campaignService.UpdateCampaign(model);
@@ -67,6 +73,8 @@ namespace RemoteVotersAPI.Controllers
         /// <param name="campaignId"></param>
         /// <returns>Campaign</returns>
         [HttpGet("{companyId}/getCampaign/{campaignId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<CampaignViewModel> RetrieveCampaign([FromRoute] string companyId, [FromRoute] string campaignId)
         {
             return await campaignService.RetrieveCampaign(new ObjectId(companyId), new ObjectId(campaignId));
@@ -78,6 +86,8 @@ namespace RemoteVotersAPI.Controllers
         /// <param name="code"></param>
         /// <returns>Campaign</returns>
         [HttpGet("getCampaign/{code}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<CampaignViewModel> RetrieveCampaign([FromRoute] string code)
         {
             return await campaignService.RetrieveCampaignByCode(code);
@@ -89,6 +99,8 @@ namespace RemoteVotersAPI.Controllers
         /// <param name="companyId"></param>
         /// <returns>Campaign list</returns>
         [HttpGet("{companyId}/getAllCampaigns")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<List<CampaignViewModel>> RetrieveAllCompaignByCompany([FromRoute] string companyId)
         {
             return await campaignService.RetrieveAllByCompanyId(new ObjectId(companyId));
@@ -101,6 +113,8 @@ namespace RemoteVotersAPI.Controllers
         /// <param name="campaignId"></param>
         /// <returns></returns>
         [HttpDelete("{companyId}/delete-campaign/{campaignId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task Delete([FromRoute] string companyId, [FromRoute] string campaignId)
         {
             await campaignService.DeleteCampaign(new ObjectId(companyId), new ObjectId(campaignId));
@@ -113,6 +127,8 @@ namespace RemoteVotersAPI.Controllers
         /// <param name="campaignId"></param>
         /// <returns>Campaign Results Information</returns>
         [HttpGet("{companyId}/get-campaign-results/{campaignId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<CampaignResultViewModel> RetrieveCampaignResults([FromRoute]string companyId, [FromRoute]string campaignId)
         {
             return await campaignService.RetrieveResults(new ObjectId(companyId), new ObjectId(campaignId));

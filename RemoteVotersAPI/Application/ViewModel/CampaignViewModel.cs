@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using MongoDB.Bson;
 using Newtonsoft.Json;
@@ -41,6 +42,7 @@ namespace RemoteVotersAPI.Application.ViewModel
         public String FieldName { get; set; }
 
         /// <value> Campaign Status</value>
+        [DefaultValue(true)]
         [Required(ErrorMessage = "Status is mandatory!")]
         public bool Status_active { get; set; }
 

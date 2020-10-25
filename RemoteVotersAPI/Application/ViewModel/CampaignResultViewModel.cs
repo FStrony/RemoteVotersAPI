@@ -14,10 +14,10 @@ namespace RemoteVotersAPI.Application.ViewModel
     public class CampaignResultViewModel
     {
         /// <value>Campaign</value>
-        public CampaignViewModel Campaign;
+        public CampaignViewModel Campaign { get; set; }
 
         /// <value>Votes summary</value>
-        public List<VoteSummaryViewModel> VoteSummary;
+        public List<VoteSummaryViewModel> VoteSummary { get; set; }
 
     }
 }

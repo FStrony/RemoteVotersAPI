@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
@@ -11,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using RemoteVotersAPI.Infra.ModelSettings;
 
 namespace RemoteVotersAPI
@@ -31,12 +34,51 @@ namespace RemoteVotersAPI
 
             services.AddAutoMapper();
 
+            // Resgister the MongoDBConfig in MongoDBConfig class
             services.Configure<MongoDBConfig>(Configuration.GetSection("MongoDBConfig"));
+
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen(c => {
+
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "RemoteVotersAPI",
+                    Description = "RemoteVoters ASP.NET Core Web API",
+                    TermsOfService = new Uri("https://github.com/FStrony/RemoteVotersAPI/blob/main/README.md"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Fernando Santos (FStrony)",
+                        Email = "fstrony@gmail.com",
+                        Url = new Uri("http://fstrony.github.io"),
+                    }
+                });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger(c => { 
+                c.SerializeAsV2 = true;
+            });
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "RemoteVotersAPI V1");
+                c.RoutePrefix = string.Empty;
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
