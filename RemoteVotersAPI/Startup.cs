@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using RemoteVotersAPI.Application.AutoMapper;
 using RemoteVotersAPI.Infra.ModelSettings;
 
 namespace RemoteVotersAPI
@@ -33,7 +34,7 @@ namespace RemoteVotersAPI
             services.AddControllers();
 
             services.AddAutoMapper();
-
+            AutoMapperConfig.RegisterMappingMVC();
             // Register the MongoDBConfig in MongoDBConfig class
             services.Configure<MongoDBConfig>(Configuration.GetSection("MongoDBConfig"));
 
