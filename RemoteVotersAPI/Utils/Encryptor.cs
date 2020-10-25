@@ -8,6 +8,11 @@ namespace RemoteVotersAPI.Utils
     /// </summary>
     public static class Encryptor
     {
+        /// <summary>
+        /// Returns an encrypted string
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns>encrypted string</returns>
         public static string Encrypt(string input)
         {
             StringBuilder sb = new StringBuilder();
