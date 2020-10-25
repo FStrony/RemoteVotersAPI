@@ -108,7 +108,40 @@ namespace RemoteVotersAPI.Application.Services
         /// <returns>Campaign List</returns>
         public async Task<List<CampaignViewModel>> RetrieveAllByCompanyId(ObjectId companyId)
         {
-            return Mapper.Map<List<CampaignViewModel>>(await campaignRepository.RetriveAllByCompanyId(companyId));
+            return Mapper.Map<List<CampaignViewModel>>(await campaignRepository.RetrieveAllByCompanyId(companyId));
+        }
+
+        /// <summary>
+        /// Fetch and process the campaign Results
+        /// </summary>
+        /// <param name="companyId"></param>
+        /// <param name="campaignId"></param>
+        /// <returns>Campaign Result Information</returns>
+        public async Task<CampaignResultViewModel> RetrieveResults(ObjectId companyId, ObjectId campaignId)
+        {
+            CampaignResultViewModel campaignResults = new CampaignResultViewModel();
+
+            // Fetch the campaign
+            CampaignViewModel campaign = await RetrieveCampaign(companyId, campaignId);
+            if (campaign != null)
+            {
+                campaignResults.Campaign = campaign;
+
+                foreach(CampaignOptionViewModel option in campaignResults.Campaign.CampaignOptions)
+                {
+                    // Count the votes for each campaign option
+                    campaignResults.VoteSummary.Add(
+                        new VoteSummaryViewModel() {
+                            Description = option.Description,
+                            OptionId = option.Id,
+                            TotalVotes = await voteService.CountOptionTotalVotes(campaignResults.Campaign.CompanyId,
+                                                                                 campaignResults.Campaign.Id,
+                                                                                 option.Id)
+                        }
+                    );
+                }
+            }
+            return campaignResults;
         }
     }
 }

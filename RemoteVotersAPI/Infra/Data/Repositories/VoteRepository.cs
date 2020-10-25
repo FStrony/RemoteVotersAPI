@@ -58,16 +58,17 @@ namespace RemoteVotersAPI.Infra.Data.Repositories
         }
 
         /// <summary>
-        /// Retrieve the campaign results
+        /// Count the Option's total of votes received
         /// </summary>
         /// <param name="companyId"></param>
         /// <param name="campaignId"></param>
-        /// <returns>Vote list</returns>
-        public async Task<List<Vote>> RetrieveResults(ObjectId companyId, ObjectId campaignId)
+        /// <param name="optionId"></param>
+        /// <returns>Total of votes received</returns>
+        public async Task<long> CountOptionTotalVotes(ObjectId companyId, ObjectId campaignId, ObjectId optionId)
         {
-            return await Collection.Find(record => record.CampaignId.Equals(campaignId)
-                                                && record.CompanyId.Equals(companyId))
-                                            .ToListAsync();
+            return await Collection.CountDocumentsAsync(record => record.CompanyId.Equals(companyId)
+                                                               && record.CampaignId.Equals(campaignId)
+                                                               && record.CampaignOptionId.Equals(optionId));
         }
 
         /// <summary>

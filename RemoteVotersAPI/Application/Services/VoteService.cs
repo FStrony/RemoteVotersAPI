@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
@@ -66,14 +65,15 @@ namespace RemoteVotersAPI.Application.Services
         }
 
         /// <summary>
-        /// Retrieve Results
+        /// Count the Option's total of votes received
         /// </summary>
         /// <param name="companyId"></param>
         /// <param name="campaignId"></param>
-        /// <returns>Result List</returns>
-        public async Task<List<VoteViewModel>> RetrieveResults(ObjectId companyId, ObjectId campaignId)
+        /// <param name="optionId"></param>
+        /// <returns>Total of votes received</returns>
+        public async Task<long> CountOptionTotalVotes(ObjectId companyId, ObjectId campaignId, ObjectId optionId)
         {
-            return Mapper.Map<List<VoteViewModel>>(await voteRepository.RetrieveResults(companyId, campaignId));
+            return await voteRepository.CountOptionTotalVotes(companyId, campaignId, optionId);
         }
 
         /// <summary>

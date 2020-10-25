@@ -95,7 +95,7 @@ namespace RemoteVotersAPI.Infra.Data.Repositories
         /// </summary>
         /// <param name="companyId"></param>
         /// <returns>Campaign List</returns>
-        public async Task<List<Campaign>> RetriveAllByCompanyId(ObjectId companyId)
+        public async Task<List<Campaign>> RetrieveAllByCompanyId(ObjectId companyId)
         {
             return await Collection.Find(record => record.CompanyId.Equals(companyId)).ToListAsync();
         }

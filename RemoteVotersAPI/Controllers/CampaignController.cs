@@ -67,7 +67,7 @@ namespace RemoteVotersAPI.Controllers
         /// <param name="campaignId"></param>
         /// <returns>Campaign</returns>
         [HttpGet("{companyId}/getCampaign/{campaignId}")]
-        public async Task<CampaignViewModel> RetriveCampaign([FromRoute] string companyId, [FromRoute] string campaignId)
+        public async Task<CampaignViewModel> RetrieveCampaign([FromRoute] string companyId, [FromRoute] string campaignId)
         {
             return await campaignService.RetrieveCampaign(new ObjectId(companyId), new ObjectId(campaignId));
         }
@@ -78,13 +78,13 @@ namespace RemoteVotersAPI.Controllers
         /// <param name="code"></param>
         /// <returns>Campaign</returns>
         [HttpGet("getCampaign/{code}")]
-        public async Task<CampaignViewModel> RetriveCampaign([FromRoute] string code)
+        public async Task<CampaignViewModel> RetrieveCampaign([FromRoute] string code)
         {
             return await campaignService.RetrieveCampaignByCode(code);
         }
 
         /// <summary>
-        /// GET Retrive all campaigns by company ID
+        /// GET Retrieve all campaigns by company ID
         /// </summary>
         /// <param name="companyId"></param>
         /// <returns>Campaign list</returns>
@@ -104,6 +104,18 @@ namespace RemoteVotersAPI.Controllers
         public async Task Delete([FromRoute] string companyId, [FromRoute] string campaignId)
         {
             await campaignService.DeleteCampaign(new ObjectId(companyId), new ObjectId(campaignId));
+        }
+
+        /// <summary>
+        /// GET Retrieve the Campaign Results by company ID and Campaign ID
+        /// </summary>
+        /// <param name="companyId"></param>
+        /// <param name="campaignId"></param>
+        /// <returns>Campaign Results Information</returns>
+        [HttpGet("{companyId}/get-campaign-results/{campaignId}")]
+        public async Task<CampaignResultViewModel> RetrieveCampaignResults([FromRoute]string companyId, [FromRoute]string campaignId)
+        {
+            return await campaignService.RetrieveResults(new ObjectId(companyId), new ObjectId(campaignId));
         }
     }
 }

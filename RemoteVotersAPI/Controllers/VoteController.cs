@@ -59,17 +59,5 @@ namespace RemoteVotersAPI.Controllers
         {
             await voteService.DeleteAllVotes(new ObjectId(companyId), new ObjectId(campaignId));
         }
-
-        /// <summary>
-        /// GET Campaign Result
-        /// </summary>
-        /// <param name="companyId"></param>
-        /// <param name="campaignId"></param>
-        /// <returns>Campaign Results</returns>
-        [HttpGet("{companyId}/get-results/{campaignId}")]
-        public async Task<List<VoteViewModel>> RetrieveResults([FromRoute]string companyId, [FromRoute]string campaignId)
-        {
-            return await voteService.RetrieveResults(new ObjectId(companyId), new ObjectId(campaignId));
-        }
     }
 }

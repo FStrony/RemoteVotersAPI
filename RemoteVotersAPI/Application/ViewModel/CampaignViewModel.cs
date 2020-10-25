@@ -15,7 +15,7 @@ namespace RemoteVotersAPI.Application.ViewModel
     /// </summary>
     public class CampaignViewModel : BaseEntity
     {
-        /// <value>Campaign PK</value>
+        /// <value>Company ID</value>
         [Required(ErrorMessage = "CompanyId is mandatory!")]
         [JsonConverter(typeof(ObjectIdConverter))]
         public ObjectId CompanyId { get; set; }
@@ -42,10 +42,10 @@ namespace RemoteVotersAPI.Application.ViewModel
 
         /// <value> Campaign Status</value>
         [Required(ErrorMessage = "Status is mandatory!")]
-        public bool status_active { get; set; }
+        public bool Status_active { get; set; }
 
         /// <value> Campaign Options</value>
         [Required(ErrorMessage = "Campaign Options is mandatory!")]
-        List<CampaignOptionViewModel> CampaignOptions { get; set; }
+        public List<CampaignOptionViewModel> CampaignOptions { get; set; }
     }
 }

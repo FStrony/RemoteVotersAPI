@@ -34,9 +34,9 @@ namespace RemoteVotersAPI.Domain.Entities
         public String FieldName { get; set; }
 
         /// <value> Campaign Status</value>
-        public bool status_active { get; set; }
+        public bool Status_active { get; set; }
 
         /// <value> Campaign Options</value>
-        List<CampaignOption> CampaignOptions { get; set; }
+        public List<CampaignOption> CampaignOptions { get; set; }
     }
 }
