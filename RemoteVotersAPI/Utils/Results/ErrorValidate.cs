@@ -1,5 +1,5 @@
 ﻿using System;
-namespace RemoteVotersAPI.Utils.Results
+namespace remotevotersapi.Utils.Results
 {
     /// <summary>
     /// Error Entity

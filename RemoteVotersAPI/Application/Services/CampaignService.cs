@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
-using RemoteVotersAPI.Application.ViewModel;
-using RemoteVotersAPI.Domain.Entities;
-using RemoteVotersAPI.Infra.Data.Repositories;
-using RemoteVotersAPI.Infra.ModelSettings;
+using remotevotersapi.Application.ViewModel;
+using remotevotersapi.Domain.Entities;
+using remotevotersapi.Infra.Data.Repositories;
+using remotevotersapi.Infra.ModelSettings;
 
-namespace RemoteVotersAPI.Application.Services
+namespace remotevotersapi.Application.Services
 {
     /// <summary>
     /// Campaign Service
@@ -24,6 +24,9 @@ namespace RemoteVotersAPI.Application.Services
         /// <value>vote service</value>
         private VoteService voteService;
 
+        // <value> company service</value>
+        private CompanyService companyService;
+
         /// <value>MongoDB configs</value>
         private readonly IOptions<MongoDBConfig> _mongoDBConfig;
 
@@ -36,6 +39,7 @@ namespace RemoteVotersAPI.Application.Services
             _mongoDBConfig = mongoDBConfig;
             this.campaignRepository = new CampaignRepository(mongoDBConfig);
             this.voteService = new VoteService(mongoDBConfig);
+            this.companyService = new CompanyService(mongoDBConfig);
         }
 
         /// <summary>
@@ -98,7 +102,10 @@ namespace RemoteVotersAPI.Application.Services
         /// <returns>Campaign View Model</returns>
         public async Task<CampaignViewModel> RetrieveCampaignByCode(string code)
         {
-            return Mapper.Map<CampaignViewModel>(await campaignRepository.RetrieveByCode(code));
+            CampaignViewModel campaign = Mapper.Map<CampaignViewModel>(await campaignRepository.RetrieveByCode(code));
+            campaign.CompanyName = (await companyService.RetrieveCompany(campaign.CompanyId)).CompanyName;
+
+            return campaign;
         }
 
         /// <summary>

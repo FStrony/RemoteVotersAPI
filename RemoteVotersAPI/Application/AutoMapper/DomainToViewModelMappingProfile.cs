@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using RemoteVotersAPI.Application.ViewModel;
-using RemoteVotersAPI.Domain.Entities;
+using remotevotersapi.Application.ViewModel;
+using remotevotersapi.Domain.Entities;
 
-namespace RemoteVotersAPI.Application.AutoMapper
+namespace remotevotersapi.Application.AutoMapper
 {
     /// <summary>
     /// Domain to View Model Mapping

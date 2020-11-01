@@ -1,21 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using MongoDB.Bson;
-using Newtonsoft.Json;
-using remotevotersapi.Domain.Bases;
 using remotevotersapi.Utils;
 
 namespace remotevotersapi.Application.ViewModel
 {
     /// <summary>
-    /// Vote View Model
+    /// Vote View Request Model
     ///
     /// Author: FStrony
     /// </summary>
-    public class VoteViewModel : BaseEntity
+    public class VoteRequestViewModel
     {
-        /// <value>Voter Identity to check if he/she already voted</value>
-        public String VoterIdentity { get; set; }
+        /// <value>Voter Identity dictonary info to check if he/she already voted</value>
+        public Dictionary<String, String> VoterIdentity { get; set; }
 
         /// <value>Campaign ID</value>
         [Required(ErrorMessage = "CampaignId is mandatory!")]

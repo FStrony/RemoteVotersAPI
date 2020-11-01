@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using RemoteVotersAPI.Domain.Bases;
-using RemoteVotersAPI.Domain.Entities;
-using RemoteVotersAPI.Infra.ModelSettings;
+using remotevotersapi.Domain.Bases;
+using remotevotersapi.Domain.Entities;
+using remotevotersapi.Infra.ModelSettings;
 
-namespace RemoteVotersAPI.Infra.Data.Repositories
+namespace remotevotersapi.Infra.Data.Repositories
 {
     /// <summary>
     /// Vote Repository

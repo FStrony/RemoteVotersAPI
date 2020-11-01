@@ -1,10 +1,10 @@
 ﻿using System;
 using MongoDB.Bson;
 using Newtonsoft.Json;
-using RemoteVotersAPI.Domain.Bases;
-using RemoteVotersAPI.Utils;
+using remotevotersapi.Domain.Bases;
+using remotevotersapi.Utils;
 
-namespace RemoteVotersAPI.Domain.Entities
+namespace remotevotersapi.Domain.Entities
 {
     /// <summary>
     /// Campaign Option Entity

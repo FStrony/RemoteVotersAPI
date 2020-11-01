@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
-using RemoteVotersAPI.Application.ViewModel;
-using RemoteVotersAPI.Domain.Entities;
-using RemoteVotersAPI.Infra.Data.Repositories;
-using RemoteVotersAPI.Infra.ModelSettings;
-using RemoteVotersAPI.Utils;
+using remotevotersapi.Application.ViewModel;
+using remotevotersapi.Domain.Entities;
+using remotevotersapi.Infra.Data.Repositories;
+using remotevotersapi.Infra.ModelSettings;
+using remotevotersapi.Utils;
 
-namespace RemoteVotersAPI.Application.Services
+namespace remotevotersapi.Application.Services
 {
     /// <summary>
     /// Company Service

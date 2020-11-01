@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using RemoteVotersAPI.Domain.Bases;
+using remotevotersapi.Domain.Bases;
 
-namespace RemoteVotersAPI.Application.ViewModel
+namespace remotevotersapi.Application.ViewModel
 {
     /// <summary>
     /// Company View Model

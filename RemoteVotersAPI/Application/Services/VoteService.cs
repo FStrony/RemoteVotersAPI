@@ -1,15 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
-using RemoteVotersAPI.Application.ViewModel;
-using RemoteVotersAPI.Domain.Entities;
-using RemoteVotersAPI.Infra.Data.Repositories;
-using RemoteVotersAPI.Infra.ModelSettings;
-using RemoteVotersAPI.Utils;
+using remotevotersapi.Application.ViewModel;
+using remotevotersapi.Domain.Entities;
+using remotevotersapi.Infra.Data.Repositories;
+using remotevotersapi.Infra.ModelSettings;
+using remotevotersapi.Utils;
 
-namespace RemoteVotersAPI.Application.Services
+namespace remotevotersapi.Application.Services
 {
     /// <summary>
     /// Vote Service
@@ -20,6 +21,9 @@ namespace RemoteVotersAPI.Application.Services
     {
         /// <value>vote repository</value>
         private VoteRepository voteRepository;
+
+        /// <value>campaign service</value>
+        private CampaignService campaignService;
 
         /// <value>MongoDB configs</value>
         private readonly IOptions<MongoDBConfig> _mongoDBConfig;
@@ -32,6 +36,7 @@ namespace RemoteVotersAPI.Application.Services
         {
             _mongoDBConfig = mongoDBConfig;
             this.voteRepository = new VoteRepository(mongoDBConfig);
+            this.campaignService = new CampaignService(mongoDBConfig);
         }
 
         /// <summary>
@@ -60,10 +65,32 @@ namespace RemoteVotersAPI.Application.Services
         /// </summary>
         /// <param name="record"></param>
         /// <returns></returns>
-        public async Task RegisterVote(VoteViewModel record)
+        public async Task RegisterVote(VoteRequestViewModel record)
         {
-            record.VoterIdentity = Encryptor.Encrypt(record.VoterIdentity);
-            await voteRepository.RegisterVote(Mapper.Map<Vote>(record));
+            CampaignViewModel campaign = await campaignService.RetrieveCampaign(record.CompanyId, record.CampaignId);
+
+            if(campaign == null)
+            {
+                throw new ArgumentException();
+            }
+
+            VoteViewModel vote = new VoteViewModel();
+            vote.CampaignId = record.CampaignId;
+            vote.CompanyId = record.CompanyId;
+            vote.CampaignOptionId = record.CampaignOptionId;
+
+            if (campaign.Auth)
+            {
+                string identity = string.Join(Environment.NewLine, record.VoterIdentity);
+                vote.VoterIdentity = Encryptor.Encrypt(identity);
+
+                if(await HasAlreadyVoted(vote.CampaignId, identity))
+                {
+                    throw new ApplicationException();
+                }
+            }
+
+            await voteRepository.RegisterVote(Mapper.Map<Vote>(vote));
         }
 
         /// <summary>
@@ -83,10 +110,11 @@ namespace RemoteVotersAPI.Application.Services
         /// </summary>
         /// <param name="campaignId"></param>
         /// <param name="voterIdentity"></param>
-        /// <returns>bool</returns>
-        public async Task<bool> HasAlreadyVoted(ObjectId campaignId, String voterIdentity)
+        /// <returns>bool</returns>∂
+        private async Task<bool> HasAlreadyVoted(ObjectId campaignId, String voterIdentity)
         {
-            return await voteRepository.HasAlreadyVoted(campaignId, Encryptor.Encrypt(voterIdentity));
+            return await voteRepository.HasAlreadyVoted(campaignId, voterIdentity);
         }
+
     }
 }

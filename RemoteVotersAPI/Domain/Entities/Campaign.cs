@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using MongoDB.Bson;
 using Newtonsoft.Json;
-using RemoteVotersAPI.Domain.Bases;
-using RemoteVotersAPI.Utils;
+using remotevotersapi.Domain.Bases;
+using remotevotersapi.Utils;
 
-namespace RemoteVotersAPI.Domain.Entities
+namespace remotevotersapi.Domain.Entities
 {
     /// <summary>
     /// Campaign Entity
@@ -27,11 +27,15 @@ namespace RemoteVotersAPI.Domain.Entities
         /// <value> Campaign Code </value>
         public String CampaignCode { get; set; }
 
+        //<value> Does the campaign has autentication </value>
+        public bool Auth { get; set; }
+
         /// <value> Company endpoint to voters autenticate</value>
         public String UrlAuth { get; set; }
 
-        /// <value> Field Name used to autenticate</value>
-        public String FieldName { get; set; }
+        /// <value> List of field's names used to autenticate</value>
+        public List<String> FieldsName { get; set; }
+
 
         /// <value> Campaign Status</value>
         public bool Status { get; set; }

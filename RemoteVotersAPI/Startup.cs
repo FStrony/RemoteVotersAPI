@@ -14,10 +14,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using RemoteVotersAPI.Application.AutoMapper;
-using RemoteVotersAPI.Infra.ModelSettings;
+using remotevotersapi.Application.AutoMapper;
+using remotevotersapi.Infra.ModelSettings;
 
-namespace RemoteVotersAPI
+namespace remotevotersapi
 {
     public class Startup
     {

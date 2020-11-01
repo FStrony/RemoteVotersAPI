@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace RemoteVotersAPI.Application.AutoMapper
+namespace remotevotersapi.Application.AutoMapper
 {
     /// <summary>
     /// Auto Mapper Configuration

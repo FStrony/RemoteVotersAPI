@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace RemoteVotersAPI.Utils
+namespace remotevotersapi.Utils
 {
     /// <summary>
     /// Class responsible for encrypting data 

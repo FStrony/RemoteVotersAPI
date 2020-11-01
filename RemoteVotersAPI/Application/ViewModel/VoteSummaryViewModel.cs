@@ -1,9 +1,9 @@
 ﻿using System;
 using MongoDB.Bson;
 using Newtonsoft.Json;
-using RemoteVotersAPI.Utils;
+using remotevotersapi.Utils;
 
-namespace RemoteVotersAPI.Application.ViewModel
+namespace remotevotersapi.Application.ViewModel
 {
     /// <summary>
     /// Votes Summary

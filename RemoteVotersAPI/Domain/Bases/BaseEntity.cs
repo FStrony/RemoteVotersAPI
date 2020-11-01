@@ -1,9 +1,9 @@
 ﻿using System;
 using MongoDB.Bson;
 using Newtonsoft.Json;
-using RemoteVotersAPI.Utils;
+using remotevotersapi.Utils;
 
-namespace RemoteVotersAPI.Domain.Bases
+namespace remotevotersapi.Domain.Bases
 {
     /// <summary>
     /// Base Entity

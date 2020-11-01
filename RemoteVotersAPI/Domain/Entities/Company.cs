@@ -1,7 +1,7 @@
 ﻿using System;
-using RemoteVotersAPI.Domain.Bases;
+using remotevotersapi.Domain.Bases;
 
-namespace RemoteVotersAPI.Domain.Entities
+namespace remotevotersapi.Domain.Entities
 {
     /// <summary>
     /// Company Entity

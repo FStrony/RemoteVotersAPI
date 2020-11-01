@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using RemoteVotersAPI.Utils.Results;
+using remotevotersapi.Utils.Results;
 
-namespace RemoteVotersAPI.Utils
+namespace remotevotersapi.Utils
 {
     /// <summary>
     /// Attribute responsible for the view model validation

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using MongoDB.Bson;
 using Newtonsoft.Json;
 
-namespace RemoteVotersAPI.Utils
+namespace remotevotersapi.Utils
 {
     /*
     * BSON ObjectID is a 12-byte value consisting of:

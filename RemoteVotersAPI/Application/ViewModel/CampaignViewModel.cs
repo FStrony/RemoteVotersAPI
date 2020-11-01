@@ -4,10 +4,10 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using MongoDB.Bson;
 using Newtonsoft.Json;
-using RemoteVotersAPI.Domain.Bases;
-using RemoteVotersAPI.Utils;
+using remotevotersapi.Domain.Bases;
+using remotevotersapi.Utils;
 
-namespace RemoteVotersAPI.Application.ViewModel
+namespace remotevotersapi.Application.ViewModel
 {
     /// <summary>
     /// Campaign View Model
@@ -33,13 +33,16 @@ namespace RemoteVotersAPI.Application.ViewModel
         [Required(ErrorMessage = "Campaign Code is mandatory!")]
         public String CampaignCode { get; set; }
 
+        //<value> Does the campaign has autentication </value>
+        [DefaultValue(false)]
+        [Required(ErrorMessage = "Auth is mandatory!")]
+        public bool Auth { get; set; }
+
         /// <value> Company endpoint to voters autenticate</value>
-        [Required(ErrorMessage = "UrlAuth is mandatory!")]
         public String UrlAuth { get; set; }
 
         /// <value> Field Name used to autenticate</value>
-        [Required(ErrorMessage = "Field Name is mandatory!")]
-        public String FieldName { get; set; }
+        public String FieldsName { get; set; }
 
         /// <value> Campaign Status</value>
         [DefaultValue(true)]
@@ -49,5 +52,7 @@ namespace RemoteVotersAPI.Application.ViewModel
         /// <value> Campaign Options</value>
         [Required(ErrorMessage = "Campaign Options is mandatory!")]
         public List<CampaignOptionViewModel> CampaignOptions { get; set; }
+
+        public String CompanyName { get; set; }
     }
 }

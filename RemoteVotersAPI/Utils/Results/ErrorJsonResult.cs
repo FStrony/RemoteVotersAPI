@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace RemoteVotersAPI.Utils.Results
+namespace remotevotersapi.Utils.Results
 {
     /// <summary>
     /// Helper class - JSON Error Model

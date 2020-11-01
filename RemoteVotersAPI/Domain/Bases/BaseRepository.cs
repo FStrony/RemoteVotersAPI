@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using RemoteVotersAPI.Infra.ModelSettings;
+using remotevotersapi.Infra.ModelSettings;
 
-namespace RemoteVotersAPI.Domain.Bases
+namespace remotevotersapi.Domain.Bases
 {
     /// <summary>
     /// Class responsible for configuring the connection with the database

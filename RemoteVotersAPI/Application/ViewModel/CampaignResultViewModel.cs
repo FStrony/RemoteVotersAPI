@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using MongoDB.Bson;
 using Newtonsoft.Json;
-using RemoteVotersAPI.Utils;
+using remotevotersapi.Utils;
 
-namespace RemoteVotersAPI.Application.ViewModel
+namespace remotevotersapi.Application.ViewModel
 {
     /// <summary>
     /// Campaign Result View Model

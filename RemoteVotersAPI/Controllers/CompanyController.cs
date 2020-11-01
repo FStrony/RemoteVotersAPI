@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
-using RemoteVotersAPI.Application.Services;
-using RemoteVotersAPI.Application.ViewModel;
-using RemoteVotersAPI.Infra.ModelSettings;
-using RemoteVotersAPI.Utils;
+using remotevotersapi.Application.Services;
+using remotevotersapi.Application.ViewModel;
+using remotevotersapi.Infra.ModelSettings;
+using remotevotersapi.Utils;
 
-namespace RemoteVotersAPI.Controllers
+namespace remotevotersapi.Controllers
 {
     /// <summary>
     /// Company Controller

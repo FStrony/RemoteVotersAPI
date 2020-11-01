@@ -1,5 +1,5 @@
 ﻿using System;
-namespace RemoteVotersAPI.Infra.ModelSettings
+namespace remotevotersapi.Infra.ModelSettings
 {
     /// <summary>
     /// MongoDB configs

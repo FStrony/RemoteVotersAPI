@@ -2,10 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using MongoDB.Bson;
 using Newtonsoft.Json;
-using RemoteVotersAPI.Domain.Bases;
-using RemoteVotersAPI.Utils;
+using remotevotersapi.Domain.Bases;
+using remotevotersapi.Utils;
 
-namespace RemoteVotersAPI.Application.ViewModel
+namespace remotevotersapi.Application.ViewModel
 {
     /// <summary>
     /// Campaign Option View Model
