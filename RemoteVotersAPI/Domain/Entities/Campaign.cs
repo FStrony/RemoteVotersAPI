@@ -27,7 +27,7 @@ namespace remotevotersapi.Domain.Entities
         /// <value> Campaign Code </value>
         public String CampaignCode { get; set; }
 
-        //<value> Does the campaign has autentication </value>
+        ///<value> Does the campaign has autentication </value>
         public bool Auth { get; set; }
 
         /// <value> Company endpoint to voters autenticate</value>
@@ -35,7 +35,6 @@ namespace remotevotersapi.Domain.Entities
 
         /// <value> List of field's names used to autenticate</value>
         public List<String> FieldsName { get; set; }
-
 
         /// <value> Campaign Status</value>
         public bool Status { get; set; }

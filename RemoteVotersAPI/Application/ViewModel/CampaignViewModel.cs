@@ -42,7 +42,7 @@ namespace remotevotersapi.Application.ViewModel
         public String UrlAuth { get; set; }
 
         /// <value> Field Name used to autenticate</value>
-        public String FieldsName { get; set; }
+        public List<String> FieldsName { get; set; }
 
         /// <value> Campaign Status</value>
         [DefaultValue(true)]
