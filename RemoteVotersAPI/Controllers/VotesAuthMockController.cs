@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,9 +13,10 @@ namespace remotevotersapi.Controllers
     /// Author: FStrony
     /// </summary> 
     [ApiController]
+    [AllowAnonymous]
     [Route("[controller]")]
     [Produces("application/json")]
-    public class VotesAuthMock : ControllerBase
+    public class VotesAuthMockController : ControllerBase
     {
         /// <summary>
         /// POST Success Auth Mock
