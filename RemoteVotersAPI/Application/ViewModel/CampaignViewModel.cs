@@ -38,10 +38,10 @@ namespace remotevotersapi.Application.ViewModel
         [Required(ErrorMessage = "Auth is mandatory!")]
         public bool Auth { get; set; }
 
-        /// <value> Company endpoint to voters autenticate</value>
+        /// <value> Company endpoint to voters authenticate</value>
         public String UrlAuth { get; set; }
 
-        /// <value> Field Name used to autenticate</value>
+        /// <value> Field Name used to authenticate</value>
         public List<String> FieldsName { get; set; }
 
         /// <value> Campaign Status</value>
