@@ -10,14 +10,14 @@ using remotevotersapi.Utils;
 namespace remotevotersapi.Controllers
 {
     /// <summary>
-    /// Campaign Controller
+    /// Campaigns Controller
     ///
     /// Author: FStrony
     /// </summary>
     [ApiController]
     [Route("[controller]")]
     [Produces("application/json")]
-    public class CampaignController : ControllerBase
+    public class CampaignsController : ControllerBase
     {
         /// <value>campaign service</value>
         private CampaignService campaignService;
@@ -26,7 +26,7 @@ namespace remotevotersapi.Controllers
         /// Dependency Injection
         /// </summary>
         /// <param name="campaignService"></param>
-        public CampaignController(CampaignService campaignService)
+        public CampaignsController(CampaignService campaignService)
         {
             this.campaignService = campaignService;
         }
@@ -93,7 +93,7 @@ namespace remotevotersapi.Controllers
         /// </summary>
         /// <param name="companyId"></param>
         /// <returns>Campaign list</returns>
-        [HttpGet("{companyId}/getAllCampaigns")]
+        [HttpGet("{companyId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<List<CampaignViewModel>> RetrieveAllCompaignByCompany([FromRoute] string companyId)

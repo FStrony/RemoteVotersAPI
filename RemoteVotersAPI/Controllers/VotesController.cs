@@ -9,14 +9,14 @@ using remotevotersapi.Utils;
 namespace remotevotersapi.Controllers
 {
     /// <summary>
-    /// Vote Controller
+    /// Votes Controller
     ///
     /// Author: FStrony
     /// </summary>
     [ApiController]
     [Route("[controller]")]
     [Produces("application/json")]
-    public class VoteController : ControllerBase
+    public class VotesController : ControllerBase
     {
         /// <value>vote service</value>
         private VoteService voteService;
@@ -25,7 +25,7 @@ namespace remotevotersapi.Controllers
         /// Dependency Injection
         /// </summary>
         /// <param name="voteService"></param>
-        public VoteController(VoteService voteService)
+        public VotesController(VoteService voteService)
         {
             this.voteService = voteService;
         }

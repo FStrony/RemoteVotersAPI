@@ -7,14 +7,14 @@ namespace remotevotersapi.Controllers
 {
 
     /// <summary>
-    /// Vote Auth Mock Controller
+    /// Votes Auth Mock Controller
     ///
     /// Author: FStrony
     /// </summary> 
     [ApiController]
     [Route("[controller]")]
     [Produces("application/json")]
-    public class VoteAuthMock : ControllerBase
+    public class VotesAuthMock : ControllerBase
     {
         /// <summary>
         /// POST Success Auth Mock
