@@ -32,7 +32,7 @@ namespace remotevotersapi.Infra.Data.Repositories
         public CampaignRepository(IOptions<MongoDBConfig> mongoDBConfig) : base(mongoDBConfig)
         {
             _mongoDBConfig = mongoDBConfig;
-            Collection = DataBase.GetCollection<Campaign>(CollectionName);
+            Collection = Database.GetCollection<Campaign>(CollectionName);
         }
 
         /// <summary>

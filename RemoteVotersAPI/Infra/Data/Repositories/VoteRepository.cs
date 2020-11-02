@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
@@ -33,7 +32,7 @@ namespace remotevotersapi.Infra.Data.Repositories
         public VoteRepository(IOptions<MongoDBConfig> mongoDBConfig) : base(mongoDBConfig)
         {
             _mongoDBConfig = mongoDBConfig;
-            Collection = DataBase.GetCollection<Vote>(CollectionName);
+            Collection = Database.GetCollection<Vote>(CollectionName);
         }
 
         /// <summary>

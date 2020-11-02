@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using remotevotersapi.Infra.ModelSettings;
 
@@ -18,10 +17,10 @@ namespace remotevotersapi.Domain.Bases
         public BaseRepository(IOptions<MongoDBConfig> mongoDBConfig)
         {
             _mongoDBConfig = mongoDBConfig.Value;
-            client = new MongoClient(_mongoDBConfig.getConnectionString());
-            DataBase = client.GetDatabase(_mongoDBConfig.Database);
+            client = new MongoClient("mongodb://localhost:27017/RemoteVoters");
+            Database = client.GetDatabase("RemoteVoters");
         }
 
-        public IMongoDatabase DataBase { get; private set; }
+        public IMongoDatabase Database { get; private set; }
     }
 }

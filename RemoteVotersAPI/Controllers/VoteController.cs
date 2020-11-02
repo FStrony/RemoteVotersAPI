@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using remotevotersapi.Application.Services;
 using remotevotersapi.Application.ViewModel;
-using remotevotersapi.Infra.ModelSettings;
 using remotevotersapi.Utils;
 
 namespace remotevotersapi.Controllers
@@ -25,17 +21,13 @@ namespace remotevotersapi.Controllers
         /// <value>vote service</value>
         private VoteService voteService;
 
-        /// <value>MongoDB configs</value>
-        private readonly IOptions<MongoDBConfig> _mongoDBConfig;
-
         /// <summary>
-        /// Dependency injection
+        /// Dependency Injection
         /// </summary>
-        /// <param name="mongoDBConfig"></param>
-        public VoteController(IOptions<MongoDBConfig> mongoDBConfig)
+        /// <param name="voteService"></param>
+        public VoteController(VoteService voteService)
         {
-            _mongoDBConfig = mongoDBConfig;
-            this.voteService = new VoteService(mongoDBConfig);
+            this.voteService = voteService;
         }
 
         /// <summary>

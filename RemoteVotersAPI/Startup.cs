@@ -1,20 +1,16 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using remotevotersapi.Application.AutoMapper;
+using remotevotersapi.Application.Services;
+using remotevotersapi.Infra.Data.Repositories;
 using remotevotersapi.Infra.ModelSettings;
 
 namespace remotevotersapi
@@ -69,6 +65,14 @@ namespace remotevotersapi
                 c.IncludeXmlComments(xmlPath);
 
             });
+
+            services.AddScoped<VoteService, VoteService>();
+            services.AddScoped<CampaignService, CampaignService>();
+            services.AddScoped<CompanyService, CompanyService>();
+
+            services.AddScoped<CampaignRepository, CampaignRepository>();
+            services.AddScoped<CompanyRepository, CompanyRepository>();
+            services.AddScoped<VoteRepository, VoteRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using remotevotersapi.Application.ViewModel;
 using remotevotersapi.Domain.Entities;
 using remotevotersapi.Infra.Data.Repositories;
-using remotevotersapi.Infra.ModelSettings;
 
 namespace remotevotersapi.Application.Services
 {
@@ -22,34 +19,22 @@ namespace remotevotersapi.Application.Services
         private CampaignRepository campaignRepository;
 
         /// <value>vote service</value>
-        private VoteService voteService;
+        private VoteRepository voteRepository;
 
         // <value> company service</value>
-        private CompanyService companyService;
-
-        /// <value>MongoDB configs</value>
-        private readonly IOptions<MongoDBConfig> _mongoDBConfig;
+        private CompanyRepository companyRepository;
 
         /// <summary>
-        /// Dependency injection
+        /// Dependency Injection
         /// </summary>
-        /// <param name="mongoDBConfig"></param>
-        public CampaignService(IOptions<MongoDBConfig> mongoDBConfig)
+        /// <param name="companyRepository"></param>
+        /// <param name="voteRepository"></param>
+        /// <param name="campaignRepository"></param>
+        public CampaignService(CompanyRepository companyRepository, VoteRepository voteRepository, CampaignRepository campaignRepository)
         {
-            _mongoDBConfig = mongoDBConfig;
-            this.campaignRepository = new CampaignRepository(mongoDBConfig);
-            this.voteService = new VoteService(mongoDBConfig);
-            this.companyService = new CompanyService(mongoDBConfig);
-        }
-
-        /// <summary>
-        /// Delete All Campaigns By company ID
-        /// </summary>
-        /// <param name="companyId"></param>
-        /// <returns></returns>
-        public async Task DeleteAllCampaignsByCompanyId(ObjectId companyId)
-        {
-            await campaignRepository.DeleteAllByCompanyId(companyId);
+            this.campaignRepository = campaignRepository;
+            this.voteRepository = voteRepository;
+            this.companyRepository = companyRepository;
         }
 
         /// <summary>
@@ -61,7 +46,7 @@ namespace remotevotersapi.Application.Services
         public async Task DeleteCampaign(ObjectId companyId, ObjectId campaignId)
         {
             await campaignRepository.Delete(companyId, campaignId);
-            await voteService.DeleteAllVotes(companyId, campaignId);
+            await voteRepository.DeleteAll(companyId, campaignId);
         }
 
         /// <summary>
@@ -103,7 +88,7 @@ namespace remotevotersapi.Application.Services
         public async Task<CampaignViewModel> RetrieveCampaignByCode(string code)
         {
             CampaignViewModel campaign = Mapper.Map<CampaignViewModel>(await campaignRepository.RetrieveByCode(code));
-            campaign.CompanyName = (await companyService.RetrieveCompany(campaign.CompanyId)).CompanyName;
+            campaign.CompanyName = (await companyRepository.Retrieve(campaign.CompanyId)).CompanyName;
 
             return campaign;
         }
@@ -141,7 +126,7 @@ namespace remotevotersapi.Application.Services
                         new VoteSummaryViewModel() {
                             Description = option.Description,
                             OptionId = option.Id,
-                            TotalVotes = await voteService.CountOptionTotalVotes(campaignResults.Campaign.CompanyId,
+                            TotalVotes = await voteRepository.CountOptionTotalVotes(campaignResults.Campaign.CompanyId,
                                                                                  campaignResults.Campaign.Id,
                                                                                  option.Id)
                         }

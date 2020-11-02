@@ -1,9 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using MongoDB.Bson;
 using Newtonsoft.Json;
 using remotevotersapi.Domain.Bases;
-using remotevotersapi.Utils;
 
 namespace remotevotersapi.Application.ViewModel
 {

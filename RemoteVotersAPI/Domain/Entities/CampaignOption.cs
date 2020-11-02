@@ -1,8 +1,5 @@
 ﻿using System;
-using MongoDB.Bson;
-using Newtonsoft.Json;
 using remotevotersapi.Domain.Bases;
-using remotevotersapi.Utils;
 
 namespace remotevotersapi.Domain.Entities
 {

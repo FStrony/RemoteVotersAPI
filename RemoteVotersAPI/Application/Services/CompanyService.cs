@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using remotevotersapi.Application.ViewModel;
 using remotevotersapi.Domain.Entities;
 using remotevotersapi.Infra.Data.Repositories;
-using remotevotersapi.Infra.ModelSettings;
 using remotevotersapi.Utils;
 
 namespace remotevotersapi.Application.Services
@@ -22,24 +20,22 @@ namespace remotevotersapi.Application.Services
         private CompanyRepository companyRepository;
 
         /// <value>campaign service</value>
-        private CampaignService campaignService;
+        private CampaignRepository campaignRepository;
 
         /// <value>vote service</value>
-        private VoteService voteService;
-
-        /// <value>MongoDB configs</value>
-        private readonly IOptions<MongoDBConfig> _mongoDBConfig;
+        private VoteRepository voteRepository;
 
         /// <summary>
-        /// Dependency injection
+        /// Dependency Injection
         /// </summary>
-        /// <param name="mongoDBConfig"></param>
-        public CompanyService(IOptions<MongoDBConfig> mongoDBConfig)
+        /// <param name="campaignRepository"></param>
+        /// <param name="companyRepository"></param>
+        /// <param name="voteRepository"></param>
+        public CompanyService(CampaignRepository campaignRepository, CompanyRepository companyRepository, VoteRepository voteRepository)
         {
-            _mongoDBConfig = mongoDBConfig;
-            this.companyRepository = new CompanyRepository(mongoDBConfig);
-            this.campaignService = new CampaignService(mongoDBConfig);
-            this.voteService = new VoteService(mongoDBConfig);
+            this.companyRepository = companyRepository;
+            this.campaignRepository = campaignRepository;
+            this.voteRepository = voteRepository;
         }
 
         /// <summary>
@@ -82,8 +78,8 @@ namespace remotevotersapi.Application.Services
         public async Task DeleteCompany(ObjectId companyId)
         {
             await companyRepository.Delete(companyId);
-            await campaignService.DeleteAllCampaignsByCompanyId(companyId);
-            await voteService.DeleteAllVotesByCompanyId(companyId);
+            await campaignRepository.DeleteAllByCompanyId(companyId);
+            await voteRepository.DeleteAllByCompanyId(companyId);
         }
 
         /// <summary>

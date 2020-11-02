@@ -26,7 +26,7 @@ namespace remotevotersapi.Infra.ModelSettings
         /// <returns>MongoDB connection String</returns>
         public String getConnectionString()
         {
-            return $"mongodb+srv://{this.User}:{this.Password}@{this.Url}/{this.Database}?retryWrites=true&w=majority";
+            return $"mongodb://{this.User}:{this.Password}@{this.Url}/{this.Database}?retryWrites=true&w=majority";
         }
     }
 }

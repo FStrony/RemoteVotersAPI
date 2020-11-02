@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using MongoDB.Bson;
-using Newtonsoft.Json;
-using remotevotersapi.Utils;
+﻿using System.Collections.Generic;
 
 namespace remotevotersapi.Application.ViewModel
 {

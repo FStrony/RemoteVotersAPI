@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using remotevotersapi.Application.ViewModel;
 using remotevotersapi.Domain.Entities;
 using remotevotersapi.Infra.Data.Repositories;
-using remotevotersapi.Infra.ModelSettings;
 using remotevotersapi.Utils;
 
 namespace remotevotersapi.Application.Services
@@ -23,30 +20,17 @@ namespace remotevotersapi.Application.Services
         private VoteRepository voteRepository;
 
         /// <value>campaign service</value>
-        private CampaignService campaignService;
-
-        /// <value>MongoDB configs</value>
-        private readonly IOptions<MongoDBConfig> _mongoDBConfig;
+        private CampaignRepository campaignRepository;
 
         /// <summary>
-        /// Dependency injection
+        /// Dependency Injection
         /// </summary>
-        /// <param name="mongoDBConfig"></param>
-        public VoteService(IOptions<MongoDBConfig> mongoDBConfig)
+        /// <param name="voteRepository"></param>
+        /// <param name="campaignRepository"></param>
+        public VoteService(VoteRepository voteRepository, CampaignRepository campaignRepository)
         {
-            _mongoDBConfig = mongoDBConfig;
-            this.voteRepository = new VoteRepository(mongoDBConfig);
-            this.campaignService = new CampaignService(mongoDBConfig);
-        }
-
-        /// <summary>
-        /// Delete All Votes By Company ID
-        /// </summary>
-        /// <param name="companyId"></param>
-        /// <returns></returns>
-        public async Task DeleteAllVotesByCompanyId(ObjectId companyId)
-        {
-            await voteRepository.DeleteAllByCompanyId(companyId);
+            this.voteRepository = voteRepository;
+            this.campaignRepository = campaignRepository;
         }
 
         /// <summary>
@@ -67,7 +51,7 @@ namespace remotevotersapi.Application.Services
         /// <returns></returns>
         public async Task RegisterVote(VoteRequestViewModel record)
         {
-            CampaignViewModel campaign = await campaignService.RetrieveCampaign(record.CompanyId, record.CampaignId);
+            Campaign campaign = await campaignRepository.Retrieve(record.CompanyId, record.CampaignId);
 
             if(campaign == null)
             {
