@@ -53,7 +53,7 @@ namespace remotevotersapi.Infra.Data.Repositories
         /// <returns></returns>
         public async Task<bool> HasAlreadyVoted(ObjectId campaignId, String voterIdentity)
         {
-            return await Collection.Find(record => record.CampaignId.Equals(campaignId) && record.VoterIdentity.Equals(voterIdentity)).FirstAsync() != null;
+            return (await Collection.CountDocumentsAsync(record => record.CampaignId.Equals(campaignId) && record.VoterIdentity.Equals(voterIdentity))) > 0;
         }
 
         /// <summary>

@@ -34,16 +34,14 @@ namespace remotevotersapi.Controllers
         /// <summary>
         /// POST Create Campaign
         /// </summary>
-        /// <param name="companyId"></param>
         /// <param name="model"></param>
         /// <returns></returns>
-        [HttpPost("{companyId}")]
+        [HttpPost]
         [ValidateModelState]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task Create([FromRoute] string companyId, [FromBody] CampaignViewModel model)
+        public async Task Create([FromBody] CampaignViewModel model)
         {
-            model.CompanyId = ObjectId.Parse(companyId);
             await campaignService.CreateCampaign(model);
         }
 

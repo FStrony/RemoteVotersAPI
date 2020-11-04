@@ -17,7 +17,7 @@ namespace remotevotersapi.Application.ViewModel
     public class CampaignViewModel : BaseEntity
     {
         /// <value>Company ID</value>
-        //[Required(ErrorMessage = "CompanyId is mandatory!")]
+        [Required(ErrorMessage = "CompanyId is mandatory!")]
         [JsonConverter(typeof(ObjectIdConverter))]
         public ObjectId CompanyId { get; set; }
 

@@ -8,10 +8,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
 using remotevotersapi.Application.AutoMapper;
 using remotevotersapi.Application.Services;
 using remotevotersapi.Infra.Data.Repositories;
 using remotevotersapi.Infra.ModelSettings;
+using remotevotersapi.Utils;
 
 namespace remotevotersapi
 {
@@ -35,7 +37,14 @@ namespace remotevotersapi
                 });
             });
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                // Use the default property (Pascal) casing
+                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+
+                // Configure a custom converter
+                options.SerializerSettings.Converters.Add(new ObjectIdConverter());
+            });
 
             services.AddAutoMapper();
             AutoMapperConfig.RegisterMappingMVC();

@@ -26,7 +26,7 @@ namespace remotevotersapi.Controllers
         [HttpPost("success")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public bool AuthSuccess([FromBody] Dictionary<String, String> properties)
+        public bool AuthSuccess([FromBody] Dictionary<string, string> properties)
         {
             return true;
         }
@@ -39,7 +39,7 @@ namespace remotevotersapi.Controllers
         [HttpPost("fail")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public bool AuthFail([FromBody] IDictionary<String, String> properties)
+        public bool AuthFail([FromBody] IDictionary<string, string> properties)
         {
             return false;
         }

@@ -65,10 +65,9 @@ namespace remotevotersapi.Application.Services
 
             if (campaign.Auth)
             {
-                string identity = string.Join(Environment.NewLine, record.VoterIdentity);
-                vote.VoterIdentity = Encryptor.Encrypt(identity);
-
-                if(await HasAlreadyVoted(vote.CampaignId, identity))
+                string identity = Encryptor.Encrypt(string.Join(Environment.NewLine, record.VoterIdentity));
+   
+                if (await HasAlreadyVoted(vote.CampaignId, identity))
                 {
                     throw new ApplicationException();
                 }
