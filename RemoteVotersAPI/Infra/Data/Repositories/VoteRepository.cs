@@ -32,7 +32,7 @@ namespace remotevotersapi.Infra.Data.Repositories
         public VoteRepository(IOptions<MongoDBConfig> mongoDBConfig) : base(mongoDBConfig)
         {
             _mongoDBConfig = mongoDBConfig;
-            Collection = Database.GetCollection<Vote>(CollectionName);
+            Collection = database.GetCollection<Vote>(CollectionName);
         }
 
         /// <summary>

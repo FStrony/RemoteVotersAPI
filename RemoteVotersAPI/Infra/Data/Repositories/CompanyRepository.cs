@@ -31,7 +31,7 @@ namespace remotevotersapi.Infra.Data.Repositories
         public CompanyRepository(IOptions<MongoDBConfig> mongoDBConfig) : base(mongoDBConfig)
         {
             _mongoDBConfig = mongoDBConfig;
-            Collection = Database.GetCollection<Company>(CollectionName);
+            Collection = database.GetCollection<Company>(CollectionName);
         }
 
         /// <summary>

@@ -17,10 +17,11 @@ namespace remotevotersapi.Domain.Bases
         public BaseRepository(IOptions<MongoDBConfig> mongoDBConfig)
         {
             _mongoDBConfig = mongoDBConfig.Value;
-            client = new MongoClient("mongodb://localhost:27017/RemoteVoters");
-            Database = client.GetDatabase("RemoteVoters");
+            //client = new MongoClient("mongodb://localhost:27017/RemoteVoters");
+            client = new MongoClient(_mongoDBConfig.getConnectionString());
+            database = client.GetDatabase(_mongoDBConfig.Database);
         }
 
-        public IMongoDatabase Database { get; private set; }
+        public IMongoDatabase database { get; private set; }
     }
 }
