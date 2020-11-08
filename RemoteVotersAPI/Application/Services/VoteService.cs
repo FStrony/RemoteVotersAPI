@@ -71,6 +71,8 @@ namespace remotevotersapi.Application.Services
                 {
                     throw new ApplicationException();
                 }
+
+                vote.VoterIdentity = identity;
             }
 
             await voteRepository.RegisterVote(Mapper.Map<Vote>(vote));
