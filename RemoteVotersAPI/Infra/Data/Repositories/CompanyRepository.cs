@@ -73,5 +73,16 @@ namespace remotevotersapi.Infra.Data.Repositories
         {
             return await Collection.Find(record => record.Id.Equals(id)).FirstAsync();
         }
+
+        /// <summary>
+        /// Retrieve Company by Email and Password
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public async Task<Company> Retrieve(string email, string password)
+        {
+            return await Collection.Find(record => record.Email.Equals(email) && record.Password.Equals(password)).FirstAsync(); 
+        }
     }
 }

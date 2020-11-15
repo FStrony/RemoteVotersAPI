@@ -78,6 +78,7 @@ namespace remotevotersapi
             services.AddScoped<VoteService, VoteService>();
             services.AddScoped<CampaignService, CampaignService>();
             services.AddScoped<CompanyService, CompanyService>();
+            services.AddScoped<AuthService, AuthService>();
 
             services.AddScoped<CampaignRepository, CampaignRepository>();
             services.AddScoped<CompanyRepository, CompanyRepository>();
