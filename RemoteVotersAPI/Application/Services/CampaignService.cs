@@ -153,25 +153,29 @@ namespace remotevotersapi.Application.Services
 
             // Fetch the campaign
             CampaignViewModel campaign = await RetrieveCampaign(companyId, campaignId);
-            if (campaign != null)
-            {
-                campaignResults.Campaign = campaign;
+            if (campaign == null)
+                throw new NotFoundException();
 
-                foreach(CampaignOptionViewModel option in campaignResults.Campaign.CampaignOptions)
-                {
-                    // Count the votes for each campaign option
-                    campaignResults.VoteSummary.Add(
-                        new VoteSummaryViewModel() {
-                            Description = option.Description,
-                            OptionId = option.Id,
-                            TotalVotes = await voteRepository.CountOptionTotalVotes(campaignResults.Campaign.CompanyId,
-                                                                                 campaignResults.Campaign.Id,
-                                                                                 option.Id)
-                        }
-                    );
-                }
+            campaignResults.Campaign = campaign;
+            campaignResults.VoteSummary = new List<VoteSummaryViewModel>();
+
+            foreach (CampaignOptionViewModel option in campaignResults.Campaign.CampaignOptions)
+            {
+                // Count the votes for each campaign option
+                campaignResults.VoteSummary.Add(
+                    new VoteSummaryViewModel()
+                    {
+                        Description = option.Description,
+                        OptionId = option.Id,
+                        TotalVotes = await voteRepository.CountOptionTotalVotes(campaignResults.Campaign.CompanyId,
+                                                                             campaignResults.Campaign.Id,
+                                                                             option.Id)
+                    }
+                );
             }
+
             return campaignResults;
         }
     }
 }
+
