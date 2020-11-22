@@ -55,7 +55,7 @@ namespace remotevotersapi.Application.Services
 
             if(campaign == null)
             {
-                throw new ArgumentException();
+                throw new NotFoundException();
             }
 
             VoteViewModel vote = new VoteViewModel();
@@ -69,7 +69,7 @@ namespace remotevotersapi.Application.Services
    
                 if (await HasAlreadyVoted(vote.CampaignId, identity))
                 {
-                    throw new ApplicationException();
+                    throw new NonUniqueRecordException();
                 }
 
                 vote.VoterIdentity = identity;

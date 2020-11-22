@@ -60,6 +60,34 @@ namespace remotevotersapi.Controllers
         }
 
         /// <summary>
+        /// PUT to Activate Campaign
+        /// </summary>
+        /// <param name="companyId"></param>
+        /// <param name="campaignId"></param>
+        /// <returns></returns>
+        [HttpPut("{companyId}/activate/{campaignId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task Activate([FromRoute] string companyId, [FromRoute] string campaignId)
+        {
+            await campaignService.ActivateCampaign(new ObjectId(companyId), new ObjectId(campaignId));
+        }
+
+        /// <summary>
+        /// PUT to Deactivate Campaign
+        /// </summary>
+        /// <param name="companyId"></param>
+        /// <param name="campaignId"></param>
+        /// <returns></returns>
+        [HttpPut("{companyId}/deactivate/{campaignId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task Deactivate([FromRoute] string companyId, [FromRoute] string campaignId)
+        {
+            await campaignService.DeactivateCampaign(new ObjectId(companyId), new ObjectId(campaignId));
+        }
+
+        /// <summary>
         /// GET Retrieve campaign by company ID and campaign ID
         /// </summary>
         /// <param name="companyId"></param>

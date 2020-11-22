@@ -107,7 +107,7 @@ namespace remotevotersapi.Infra.Data.Repositories
         /// <returns>Campaign</returns>
         public async Task<Campaign> RetrieveByCode(string code)
         {
-            return await Collection.Find(record => record.CampaignCode.Equals(code)).FirstAsync();
+            return await Collection.Find(record => record.CampaignCode.Equals(code) && record.Status.Equals(true)).FirstAsync();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using MongoDB.Bson;
@@ -70,6 +72,42 @@ namespace remotevotersapi.Application.Services
         }
 
         /// <summary>
+        /// Activate Campaign
+        /// </summary>
+        /// <param name="companyId"></param>
+        /// <param name="campaignId"></param>
+        /// <returns></returns>
+        public async Task ActivateCampaign(ObjectId companyId, ObjectId campaignId)
+        {
+            Campaign campaign = await campaignRepository.Retrieve(companyId, campaignId);
+
+            if (campaign == null)
+                throw new NotFoundException();
+
+            campaign.Status = true;
+
+            await campaignRepository.Update(campaign);
+        }
+
+        /// <summary>
+        /// Deactivate Campaign
+        /// </summary>
+        /// <param name="companyId"></param>
+        /// <param name="campaignId"></param>
+        /// <returns></returns>
+        public async Task DeactivateCampaign(ObjectId companyId, ObjectId campaignId)
+        {
+            Campaign campaign = await campaignRepository.Retrieve(companyId, campaignId);
+
+            if (campaign == null)
+                throw new NotFoundException();
+
+            campaign.Status = false;
+
+            await campaignRepository.Update(campaign);
+        }
+
+        /// <summary>
         /// Retrieve Campaign by company ID and campaign ID
         /// </summary>
         /// <param name="companyId"></param>
@@ -100,7 +138,7 @@ namespace remotevotersapi.Application.Services
         /// <returns>Campaign List</returns>
         public async Task<List<CampaignViewModel>> RetrieveAllByCompanyId(ObjectId companyId)
         {
-            return Mapper.Map<List<CampaignViewModel>>(await campaignRepository.RetrieveAllByCompanyId(companyId));
+            return Mapper.Map<List<CampaignViewModel>>(await campaignRepository.RetrieveAllByCompanyId(companyId)).OrderBy(e => e.RegistrationDate).ToList();
         }
 
         /// <summary>
